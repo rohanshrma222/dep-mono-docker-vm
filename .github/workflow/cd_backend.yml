@@ -21,5 +21,4 @@ name: Deploy the backend
           file: ./docker/Dockerfile.backend
           push: true
           tags: 100xdevs/todo-app-backend:${{ github.sha }}
-
-          
+ 
