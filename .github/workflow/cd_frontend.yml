@@ -1,4 +1,4 @@
-name: Deploy the backend
+name: Deploy the frontend
   on: 
     push:
       branches: [main]
@@ -20,6 +20,8 @@ name: Deploy the backend
           with:
             context: .
             file: ./docker/Dockerfile.backend
+            build-args:
+             - DATABASE_URL=${{ secrets.DATABASE_URL }}
             push: true
             tags: 100xdevs/todo-app-backend:${{ github.sha }}
  
