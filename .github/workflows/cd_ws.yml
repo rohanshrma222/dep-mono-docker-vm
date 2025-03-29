@@ -16,10 +16,15 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
 
         - name: Build and push
-          uses: docker/build-push-actions@v4
+          uses: docker/build-push-action@v4
           with:
             context: .
             file: ./docker/Dockerfile.websocket
             push: true
             tags: 100xdevs/todo-app-websocket:${{ github.sha }}
- 
+         - name: Deploy to the VM
+            run: |
+              echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
+              chmod 700 /home/runner/ssh_key
+              ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.169.180 -t "docker stop user_backend && docker run --name user_backend -d -p 8080:8080 100xdevs/todo-app-backend:${{ github.sha }}"    
+    
