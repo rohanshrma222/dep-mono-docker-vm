@@ -1,8 +1,8 @@
 name: Deploy the frontend
-  on: 
+on: 
     push:
       branches:  [main]
-  jobs:
+jobs:
     build:
       runs-on: ubuntu-latest
       steps:
